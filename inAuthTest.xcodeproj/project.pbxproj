@@ -15,6 +15,10 @@
 		6CCC182A1A93DBCA0017A56D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CCC18281A93DBCA0017A56D /* LaunchScreen.xib */; };
 		6CCC18361A93DBCA0017A56D /* inAuthTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC18351A93DBCA0017A56D /* inAuthTestTests.m */; };
 		6CCC18401A93DD620017A56D /* devnotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6CCC183F1A93DD620017A56D /* devnotes.txt */; };
+		6CCC18431A93E24B0017A56D /* AccelerometerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC18421A93E24B0017A56D /* AccelerometerService.m */; };
+		6CCC18441A93E2640017A56D /* AccelerometerService.h in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC18411A93E24B0017A56D /* AccelerometerService.h */; };
+		6CCC18451A93E2640017A56D /* AccelerometerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC18421A93E24B0017A56D /* AccelerometerService.m */; };
+		6CCC18471A93E3700017A56D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CCC18461A93E3700017A56D /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +46,9 @@
 		6CCC18341A93DBCA0017A56D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CCC18351A93DBCA0017A56D /* inAuthTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = inAuthTestTests.m; sourceTree = "<group>"; };
 		6CCC183F1A93DD620017A56D /* devnotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devnotes.txt; sourceTree = "<group>"; };
+		6CCC18411A93E24B0017A56D /* AccelerometerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerService.h; sourceTree = SOURCE_ROOT; };
+		6CCC18421A93E24B0017A56D /* AccelerometerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelerometerService.m; sourceTree = SOURCE_ROOT; };
+		6CCC18461A93E3700017A56D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CCC18471A93E3700017A56D /* CoreMotion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +73,7 @@
 		6CCC180D1A93DBCA0017A56D = {
 			isa = PBXGroup;
 			children = (
+				6CCC18461A93E3700017A56D /* CoreMotion.framework */,
 				6CCC18181A93DBCA0017A56D /* inAuthTest */,
 				6CCC18321A93DBCA0017A56D /* inAuthTestTests */,
 				6CCC18171A93DBCA0017A56D /* Products */,
@@ -88,6 +97,8 @@
 				6CCC181E1A93DBCA0017A56D /* AppDelegate.m */,
 				6CCC18201A93DBCA0017A56D /* ViewController.h */,
 				6CCC18211A93DBCA0017A56D /* ViewController.m */,
+				6CCC18411A93E24B0017A56D /* AccelerometerService.h */,
+				6CCC18421A93E24B0017A56D /* AccelerometerService.m */,
 				6CCC18231A93DBCA0017A56D /* Main.storyboard */,
 				6CCC18261A93DBCA0017A56D /* Images.xcassets */,
 				6CCC18281A93DBCA0017A56D /* LaunchScreen.xib */,
@@ -226,6 +237,8 @@
 			files = (
 				6CCC18221A93DBCA0017A56D /* ViewController.m in Sources */,
 				6CCC181F1A93DBCA0017A56D /* AppDelegate.m in Sources */,
+				6CCC18441A93E2640017A56D /* AccelerometerService.h in Sources */,
+				6CCC18451A93E2640017A56D /* AccelerometerService.m in Sources */,
 				6CCC181C1A93DBCA0017A56D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CCC18361A93DBCA0017A56D /* inAuthTestTests.m in Sources */,
+				6CCC18431A93E24B0017A56D /* AccelerometerService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
