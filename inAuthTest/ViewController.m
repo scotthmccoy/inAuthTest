@@ -10,18 +10,27 @@
 
 @interface ViewController ()
 
+@property (strong) UIView* dot;
+
 @end
+
+
 
 @implementation ViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    self.dot = [[UIView alloc] initWithFrame:CGRectMake(0,0,50,50)];
+    self.dot.backgroundColor = [UIColor redColor];
+    [self.view addSubview:self.dot];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
+
 
 @end

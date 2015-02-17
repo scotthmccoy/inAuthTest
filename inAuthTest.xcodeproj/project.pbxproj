@@ -14,6 +14,7 @@
 		6CCC18271A93DBCA0017A56D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CCC18261A93DBCA0017A56D /* Images.xcassets */; };
 		6CCC182A1A93DBCA0017A56D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CCC18281A93DBCA0017A56D /* LaunchScreen.xib */; };
 		6CCC18361A93DBCA0017A56D /* inAuthTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC18351A93DBCA0017A56D /* inAuthTestTests.m */; };
+		6CCC18401A93DD620017A56D /* devnotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6CCC183F1A93DD620017A56D /* devnotes.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		6CCC182F1A93DBCA0017A56D /* inAuthTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = inAuthTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CCC18341A93DBCA0017A56D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CCC18351A93DBCA0017A56D /* inAuthTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = inAuthTestTests.m; sourceTree = "<group>"; };
+		6CCC183F1A93DD620017A56D /* devnotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devnotes.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		6CCC18181A93DBCA0017A56D /* inAuthTest */ = {
 			isa = PBXGroup;
 			children = (
+				6CCC183F1A93DD620017A56D /* devnotes.txt */,
 				6CCC181D1A93DBCA0017A56D /* AppDelegate.h */,
 				6CCC181E1A93DBCA0017A56D /* AppDelegate.m */,
 				6CCC18201A93DBCA0017A56D /* ViewController.h */,
@@ -168,6 +171,7 @@
 				TargetAttributes = {
 					6CCC18151A93DBCA0017A56D = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = C25K9LS5G2;
 					};
 					6CCC182E1A93DBCA0017A56D = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -201,6 +205,7 @@
 			files = (
 				6CCC18251A93DBCA0017A56D /* Main.storyboard in Resources */,
 				6CCC182A1A93DBCA0017A56D /* LaunchScreen.xib in Resources */,
+				6CCC18401A93DD620017A56D /* devnotes.txt in Resources */,
 				6CCC18271A93DBCA0017A56D /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
