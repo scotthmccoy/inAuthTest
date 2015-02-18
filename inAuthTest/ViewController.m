@@ -59,11 +59,6 @@ const int hexColorForAddressBackground = 0x000000;
     self.dot.backgroundColor = [UIColor colorWithHexValue:hexColorForDot];
     [self.view addSubview:self.dot];
     
-    //Start the game loop
-    self.gameInProgress = YES;
-    self.lastTick = [NSDate timeIntervalSinceReferenceDate];
-    [self gameLoop];
-    
     //Start up Core Location
     self.geocoder = [[CLGeocoder alloc] init];
     
@@ -71,6 +66,13 @@ const int hexColorForAddressBackground = 0x000000;
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
     [self.locationManager requestWhenInUseAuthorization];
+    
+    //Start the game loop
+    self.gameInProgress = YES;
+    self.lastTick = [NSDate timeIntervalSinceReferenceDate];
+    [self gameLoop];
+    
+    [self becomeFirstResponder];
 }
 
 
@@ -107,6 +109,12 @@ const int hexColorForAddressBackground = 0x000000;
 - (void) gameLoopTick: (NSTimeInterval) dt {
     
     //DebugLog(@"Tick: %f", dt);
+    if (self.dot.hidden) {
+        self.addressLabel.hidden = YES;
+        self.dotVelocity = CGPointZero;
+        return;
+    }
+    
     
     //Get fresh values from accelerometer
     AccelerometerService* service = [AccelerometerService singleton];
@@ -228,5 +236,23 @@ const int hexColorForAddressBackground = 0x000000;
     return YES;
 }
 
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+
+    if (motion == UIEventSubtypeMotionShake)
+    {
+        self.dot.hidden = YES;
+    }
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (self.dot.hidden) {
+        UITouch *touch = [[event allTouches] anyObject];
+        CGPoint touchLocation = [touch locationInView:self.view];
+        
+        self.dot.center = touchLocation;
+        self.dot.hidden = NO;
+    }
+}
 
 @end
