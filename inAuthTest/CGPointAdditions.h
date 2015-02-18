@@ -17,6 +17,13 @@ static inline CGPoint CGPointAdd(CGPoint lValue, CGPoint rValue)
     return ret;
 }
 
+static inline CGPoint CGPointMult(CGPoint point, CGFloat mult) {
+    CGPoint ret;
+    ret.x = point.x * mult;
+    ret.y = point.y * mult;
+    return ret;
+}
+
 static inline CGPoint CGPointClampToRect(CGPoint point, CGRect rect)
 {
     CGPoint ret;

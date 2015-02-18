@@ -13,6 +13,7 @@
 #import "AccelerometerService.h"
 #import "CGPointAdditions.h"
 
+//Constants
 const int dotWidth = 50;
 const int dotHeight = 50;
 const NSTimeInterval minimumTickLength = 0.01;
@@ -21,6 +22,8 @@ const NSTimeInterval minimumTickLength = 0.01;
 @interface ViewController ()
 
 @property (strong) UIView* dot;
+@property CGPoint dotVelocity;
+
 @property BOOL gameInProgress;
 @property NSTimeInterval lastTick;
 
@@ -77,20 +80,28 @@ const NSTimeInterval minimumTickLength = 0.01;
 
 - (void) gameLoopTick: (NSTimeInterval) dt {
     
-    NSLog(@"Tick");
+    NSLog(@"Tick: %f", dt);
     
     //Get fresh values from accelerometer
     [[AccelerometerService singleton] update];
     
-    CGPoint dotCenter = CGPointAdd([AccelerometerService singleton].accelerationInPixelsPerSecond, self.dot.center);
-    dotCenter = CGPointClampToRect(dotCenter, [[UIScreen mainScreen] bounds]);
+    //Update the velocity
+    CGPoint dtAcceleration = CGPointMult([AccelerometerService singleton].accelerationInPixelsPerSecond, dt);
+    self.dotVelocity = CGPointAdd(self.dotVelocity, dtAcceleration);
     
+    //Update Position
+    CGPoint dtVelocity = CGPointMult(self.dotVelocity, dt);
+    CGPoint dotCenter = CGPointAdd(dtVelocity, self.dot.center);
+    
+    //Clamp and display
+    dotCenter = CGPointClampToRect(dotCenter, [[UIScreen mainScreen] bounds]);
     self.dot.center = dotCenter;
 }
 
 
-#pragma mark - Other
 
+
+#pragma mark - Other
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
