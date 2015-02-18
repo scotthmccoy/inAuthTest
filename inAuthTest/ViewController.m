@@ -201,13 +201,13 @@ const int hexColorForAddressBackground = 0x000000;
             DebugLog(@"error = [%@]", error);
         } else if ([placemarks count] > 0) {
             CLPlacemark* placemark = [placemarks lastObject];
-            self.addressLabel.text = [NSString stringWithFormat:@"%@ %@, %@ %@, %@, %@",
-                                 placemark.subThoroughfare,
-                                 placemark.thoroughfare,
-                                 placemark.locality,
-                                 placemark.administrativeArea,
-                                 placemark.postalCode,
-                                 placemark.country];
+            self.addressLabel.text = [NSString stringWithFormat:@"%@ %@\n%@ %@, %@\n%@",
+                                 placemark.subThoroughfare,     //Street
+                                 placemark.thoroughfare,        //Street
+                                 placemark.locality,            //City
+                                 placemark.administrativeArea,  //State
+                                 placemark.postalCode,          //Zip
+                                 placemark.country];            //Country
         }
     } ];
     
