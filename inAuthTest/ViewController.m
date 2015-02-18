@@ -20,6 +20,13 @@ const int dotHeight = 50;
 const NSTimeInterval minimumTickLength = 0.01;
 const CGFloat wallThickness = 1.0;
 
+//Note: programmers are often pretty bad at predicting the direction of change in an application over time.
+//I was tempted to put these hex values into a plist, but with a count of only 4, it seemed like overkill so
+//I went with YAGNI on this one.
+const int hexColorForDot = 0x3882a6;
+const int hexColorForViewBackground = 0x113c48;
+const int hexColorForAddressText = 0xf8f989;
+const int hexColorForAddressBackground = 0x000000;
 
 @interface ViewController ()
 
@@ -29,6 +36,8 @@ const CGFloat wallThickness = 1.0;
 @property BOOL gameInProgress;
 @property NSTimeInterval lastTick;
 
+@property CLLocationManager* locationManager;
+@property CLGeocoder* geocoder;
 
 @end
 
@@ -41,18 +50,27 @@ const CGFloat wallThickness = 1.0;
 
     [super viewDidLoad];
     
-    //Add the dot to the view
+    self.view.backgroundColor = [UIColor colorWithHexValue:hexColorForViewBackground];
+    self.addressLabel.textColor = [UIColor colorWithHexValue:hexColorForAddressText];
+    self.addressLabel.backgroundColor = [UIColor colorWithHexValue:hexColorForAddressBackground alpha:0.25];
+    
+    //Create the Dot
     self.dot = [[UIView alloc] initWithFrame:CGRectMake(0,0,dotWidth,dotHeight)];
-    self.dot.backgroundColor = [UIColor colorWithHexValue:0x000000];
+    self.dot.backgroundColor = [UIColor colorWithHexValue:hexColorForDot];
     [self.view addSubview:self.dot];
-    
-    
-
     
     //Start the game loop
     self.gameInProgress = YES;
     self.lastTick = [NSDate timeIntervalSinceReferenceDate];
     [self gameLoop];
+    
+    //Start up Core Location
+    self.geocoder = [[CLGeocoder alloc] init];
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    [self.locationManager requestWhenInUseAuthorization];
 }
 
 
@@ -63,8 +81,8 @@ const CGFloat wallThickness = 1.0;
     
     if (self.gameInProgress) {
         
-        //Have the main thread update the game as often as possible.
-        //Note: I could have gone with an NSTimer here or piggybacked on the accelerometer updates and used
+        //Queue updates to the game on the main thread as often as possible.
+        //Note: I could have gone with an NSTimer here or piggybacked on accelerometer updates and used
         //that as my main loop, but this seemed a nice compromise between elegenace, robustness and stability.
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             
@@ -88,7 +106,7 @@ const CGFloat wallThickness = 1.0;
 //while keeping the calculations to make them happen fluid.
 - (void) gameLoopTick: (NSTimeInterval) dt {
     
-    DebugLog(@"Tick: %f", dt);
+    //DebugLog(@"Tick: %f", dt);
     
     //Get fresh values from accelerometer
     AccelerometerService* service = [AccelerometerService singleton];
@@ -109,7 +127,7 @@ const CGFloat wallThickness = 1.0;
     //Check for collisions
     if (!CGPointEqualToPoint(dotCenter, clampedDotCenter))
     {
-        DebugLog(@"Collision Detected");
+        //DebugLog(@"Collision Detected");
         self.dotVelocity = CGPointZero;
     }
     
@@ -162,6 +180,47 @@ const CGFloat wallThickness = 1.0;
     return ret;
 }
 
+#pragma mark - Core Location
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+
+    //DebugLogWhereAmI();
+    
+    [self.geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error) {
+            DebugLog(@"error = [%@]", error);
+        } else if ([placemarks count] > 0) {
+            CLPlacemark* placemark = [placemarks lastObject];
+            self.addressLabel.text = [NSString stringWithFormat:@"%@ %@, %@ %@, %@, %@",
+                                 placemark.subThoroughfare,
+                                 placemark.thoroughfare,
+                                 placemark.locality,
+                                 placemark.administrativeArea,
+                                 placemark.postalCode,
+                                 placemark.country];
+        }
+    } ];
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    DebugLog(@"didFailWithError: %@", error);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+
+    DebugLogWhereAmI();
+    
+    switch (status) {
+        case kCLAuthorizationStatusAuthorizedAlways:
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            [self.locationManager startUpdatingLocation];
+            break;
+            
+        default:
+            [self.locationManager stopUpdatingLocation];
+    }
+}
 
 
 #pragma mark - Other

@@ -9,12 +9,13 @@
 #ifndef inAuthTest_PrefixHeader_pch
 #define inAuthTest_PrefixHeader_pch
 
-// Include any system framework and library headers here that should be included in all compilation units.
-// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 
 //Turns DebugLog on and off
 
+//Note: This is an old favorite of mine. On apps that don't have or don't need really robust logging systems, this little macro
+//saves a lot of time hunting down where things are happening by automatically logging the class, method, and line number where
+//the macro was called from.
 #define DEBUG_LOG_ON
 
 #ifdef DEBUG_LOG_ON

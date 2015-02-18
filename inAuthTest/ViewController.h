@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@import CoreLocation;
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 

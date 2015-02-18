@@ -25,7 +25,8 @@ const CGFloat pixelsPerGravity = 1000.0;
 const double wallThreshold = 0.9;
 
 //Tilt threshold for determining if the device is in portrait or not.
-const double portraitThreshold = 0.0;
+const double portraitThresholdX = 0.3;
+
 
 @interface AccelerometerService()
 @property (nonatomic, strong) CMMotionManager* motionManager;
@@ -88,7 +89,7 @@ static AccelerometerService* singletonObject;
         data = self.motionManager.accelerometerData.acceleration;
     }
     
-    DebugLog(@"data.x = [%f], data.y = [%f]", data.x, data.y);
+//    DebugLog(@"data.x = [%f], data.y = [%f]", data.x, data.y);
     
     [self updateInternal:data];
 }
@@ -106,8 +107,12 @@ static AccelerometerService* singletonObject;
     self.isLeftWallUp = data.x > -wallThreshold;
     self.isTopWallUp = data.y < wallThreshold;
     self.isBottomWallUp = data.y > -wallThreshold;
-
-    self.isPortrait = data.y <= portraitThreshold;
+    
+    if (data.x < -portraitThresholdX || data.x > portraitThresholdX) {
+        self.isPortrait = NO;
+    } else {
+        self.isPortrait = YES;
+    }
 }
 
 

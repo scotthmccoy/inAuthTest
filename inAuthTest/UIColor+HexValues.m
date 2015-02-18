@@ -8,6 +8,12 @@
 
 @import UIKit;
 
+@interface UIColor (HexValues)
++ (UIColor*) colorWithHexValue:(int)hex;
++ (UIColor*) colorWithHexValue:(int)hex alpha:(CGFloat)alpha;
+@end
+
+
 @implementation UIColor (HexValues)
 
 + (UIColor*) colorWithHexValue:(int)hex
