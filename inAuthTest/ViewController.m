@@ -54,9 +54,12 @@ const int hexColorForAddressBackground = 0x000000;
     self.addressLabel.textColor = [UIColor colorWithHexValue:hexColorForAddressText];
     self.addressLabel.backgroundColor = [UIColor colorWithHexValue:hexColorForAddressBackground alpha:0.25];
     
-    //Create the Dot
+    //Create the Dot and make it circular
     self.dot = [[UIView alloc] initWithFrame:CGRectMake(0,0,dotWidth,dotHeight)];
+    self.dot.layer.cornerRadius = self.dot.bounds.size.width/2;
+    self.dot.layer.masksToBounds = YES;
     self.dot.backgroundColor = [UIColor colorWithHexValue:hexColorForDot];
+    self.dot.hidden = YES;
     [self.view addSubview:self.dot];
     
     //Start up Core Location
