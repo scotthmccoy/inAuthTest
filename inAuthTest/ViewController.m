@@ -84,10 +84,11 @@ const CGFloat wallThickness = 1.0;
     DebugLog(@"Tick: %f", dt);
     
     //Get fresh values from accelerometer
-    [[AccelerometerService singleton] update];
+    AccelerometerService* service = [AccelerometerService singleton];
+    [service update];
     
     //Update the velocity
-    CGPoint dtAcceleration = CGPointMult([AccelerometerService singleton].accelerationInPixelsPerSecond, dt);
+    CGPoint dtAcceleration = CGPointMult(service.accelerationInPixelsPerSecond, dt);
     self.dotVelocity = CGPointAdd(self.dotVelocity, dtAcceleration);
     
     //Update Position
@@ -95,7 +96,7 @@ const CGFloat wallThickness = 1.0;
     CGPoint dotCenter = CGPointAdd(dtVelocity, self.dot.center);
     
     //Clamp
-    CGRect dotBounds = [self getDotBounds:[AccelerometerService singleton]];
+    CGRect dotBounds = [self getDotBounds:service];
     CGPoint clampedDotCenter = CGPointClampToRect(dotCenter, dotBounds);
     
     //Check for collisions
@@ -106,6 +107,17 @@ const CGFloat wallThickness = 1.0;
     }
     
     self.dot.center = clampedDotCenter;
+    
+    
+    
+    //If the dot is in the upper 20% of the screen
+    CGFloat threshold = [UIScreen mainScreen].bounds.size.height * .2;
+    if (service.isPortrait && self.dot.center.y <= threshold) {
+        self.addressLabel.hidden = NO;
+    } else {
+        self.addressLabel.hidden = YES;
+    }
+    
 }
 
 - (CGRect) getDotBounds:(AccelerometerService*) service {
