@@ -22,4 +22,6 @@
 @property (readonly) BOOL isTopWallUp;
 @property (readonly) BOOL isBottomWallUp;
 
+@property (readonly) BOOL isPortrait;
+
 @end

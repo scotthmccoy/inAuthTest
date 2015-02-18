@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6C0026A31A94489D00C32287 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CCC18461A93E3700017A56D /* CoreMotion.framework */; };
+		6C0026A51A944C8D00C32287 /* ViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0026A41A944C8D00C32287 /* ViewControllerTests.m */; };
 		6CCC181C1A93DBCA0017A56D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC181B1A93DBCA0017A56D /* main.m */; };
 		6CCC181F1A93DBCA0017A56D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC181E1A93DBCA0017A56D /* AppDelegate.m */; };
 		6CCC18221A93DBCA0017A56D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC18211A93DBCA0017A56D /* ViewController.m */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		6C0026A21A9426FA00C32287 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		6C0026A41A944C8D00C32287 /* ViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerTests.m; sourceTree = "<group>"; };
 		6CCC18161A93DBCA0017A56D /* inAuthTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = inAuthTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CCC181A1A93DBCA0017A56D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CCC181B1A93DBCA0017A56D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				6CCC18351A93DBCA0017A56D /* AccelerometerServiceTests.m */,
+				6C0026A41A944C8D00C32287 /* ViewControllerTests.m */,
 				6CCC18331A93DBCA0017A56D /* Supporting Files */,
 			);
 			path = inAuthTestTests;
@@ -250,6 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C0026A51A944C8D00C32287 /* ViewControllerTests.m in Sources */,
 				6CCC18361A93DBCA0017A56D /* AccelerometerServiceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

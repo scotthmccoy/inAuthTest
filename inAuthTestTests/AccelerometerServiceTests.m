@@ -12,10 +12,9 @@
 #import "AccelerometerService.h"
 @import CoreMotion;
 
+//Expose methods for testing
 @interface AccelerometerService (Testable)
-
 - (void) updateInternal:(CMAcceleration) data;
-
 @end
 
 
@@ -43,6 +42,7 @@
     XCTAssert(service.isRightWallUp, "Walls not as expected");
     XCTAssert(service.isLeftWallUp, "Walls not as expected");
     XCTAssert(service.isTopWallUp, "Walls not as expected");
+    XCTAssert(!service.isPortrait, "isPortrait not as expected");
     
     
     //Device on right edge
@@ -58,6 +58,7 @@
     XCTAssert(!service.isRightWallUp, "Walls not as expected");
     XCTAssert(service.isLeftWallUp, "Walls not as expected");
     XCTAssert(service.isTopWallUp, "Walls not as expected");
+    XCTAssert(!service.isPortrait, "isPortrait not as expected");
 
     
     //Device on bottom edge
@@ -73,6 +74,7 @@
     XCTAssert(service.isRightWallUp, "Walls not as expected");
     XCTAssert(service.isLeftWallUp, "Walls not as expected");
     XCTAssert(service.isTopWallUp, "Walls not as expected");
+    XCTAssert(service.isPortrait, "isPortrait not as expected");
 
     //Device on Left edge
     data.x = -0.9;
@@ -87,6 +89,7 @@
     XCTAssert(service.isRightWallUp, "Walls not as expected");
     XCTAssert(!service.isLeftWallUp, "Walls not as expected");
     XCTAssert(service.isTopWallUp, "Walls not as expected");
+    XCTAssert(!service.isPortrait, "isPortrait not as expected");
 
     //Device on Top edge
     data.x = 0.0;
@@ -101,6 +104,7 @@
     XCTAssert(service.isRightWallUp, "Walls not as expected");
     XCTAssert(service.isLeftWallUp, "Walls not as expected");
     XCTAssert(!service.isTopWallUp, "Walls not as expected");
+    XCTAssert(!service.isPortrait, "isPortrait not as expected");
     
     
     
@@ -118,6 +122,7 @@
     XCTAssert(service.isRightWallUp, "Walls not as expected");
     XCTAssert(service.isLeftWallUp, "Walls not as expected");
     XCTAssert(service.isTopWallUp, "Walls not as expected");
+    XCTAssert(!service.isPortrait, "isPortrait not as expected");
     
     
     //Z-axis should not affect anything
@@ -133,7 +138,39 @@
     XCTAssert(service.isRightWallUp, "Walls not as expected");
     XCTAssert(service.isLeftWallUp, "Walls not as expected");
     XCTAssert(service.isTopWallUp, "Walls not as expected");
+    XCTAssert(!service.isPortrait, "isPortrait not as expected");
     
+    
+    //Device tilted up slightly
+    data.x = 0.0;
+    data.y = -0.49;
+    data.z = 0.0;
+    
+    [service updateInternal:data];
+    
+    XCTAssert(service.accelerationInPixelsPerSecond.x == 0.0, "Acceleration not as expected");
+    XCTAssert(service.accelerationInPixelsPerSecond.y == 490.0, "Acceleration not as expected");
+    XCTAssert(service.isBottomWallUp, "Walls not as expected");
+    XCTAssert(service.isRightWallUp, "Walls not as expected");
+    XCTAssert(service.isLeftWallUp, "Walls not as expected");
+    XCTAssert(service.isTopWallUp, "Walls not as expected");
+    XCTAssert(!service.isPortrait, "isPortrait not as expected");
+    
+    
+    //Device tilted up a lot, but not on edge
+    data.x = 0.0;
+    data.y = -0.75;
+    data.z = 0.0;
+    
+    [service updateInternal:data];
+    
+    XCTAssert(service.accelerationInPixelsPerSecond.x == 0.0, "Acceleration not as expected");
+    XCTAssert(service.accelerationInPixelsPerSecond.y == 750.0, "Acceleration not as expected");
+    XCTAssert(service.isBottomWallUp, "Walls not as expected");
+    XCTAssert(service.isRightWallUp, "Walls not as expected");
+    XCTAssert(service.isLeftWallUp, "Walls not as expected");
+    XCTAssert(service.isTopWallUp, "Walls not as expected");
+    XCTAssert(service.isPortrait, "isPortrait not as expected");
 }
 
 
