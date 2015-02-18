@@ -17,6 +17,7 @@
 const int dotWidth = 50;
 const int dotHeight = 50;
 const NSTimeInterval minimumTickLength = 0.01;
+const CGFloat wallThickness = 1.0;
 
 
 @interface ViewController ()
@@ -80,7 +81,7 @@ const NSTimeInterval minimumTickLength = 0.01;
 
 - (void) gameLoopTick: (NSTimeInterval) dt {
     
-    NSLog(@"Tick: %f", dt);
+    DebugLog(@"Tick: %f", dt);
     
     //Get fresh values from accelerometer
     [[AccelerometerService singleton] update];
@@ -93,11 +94,52 @@ const NSTimeInterval minimumTickLength = 0.01;
     CGPoint dtVelocity = CGPointMult(self.dotVelocity, dt);
     CGPoint dotCenter = CGPointAdd(dtVelocity, self.dot.center);
     
-    //Clamp and display
-    dotCenter = CGPointClampToRect(dotCenter, [[UIScreen mainScreen] bounds]);
-    self.dot.center = dotCenter;
+    //Clamp
+    CGRect dotBounds = [self getDotBounds:[AccelerometerService singleton]];
+    CGPoint clampedDotCenter = CGPointClampToRect(dotCenter, dotBounds);
+    
+    //Check for collisions
+    if (!CGPointEqualToPoint(dotCenter, clampedDotCenter))
+    {
+        DebugLog(@"Collision Detected");
+        self.dotVelocity = CGPointZero;
+    }
+    
+    self.dot.center = clampedDotCenter;
 }
 
+- (CGRect) getDotBounds:(AccelerometerService*) service {
+
+    CGFloat x = dotWidth / 2;
+    CGFloat y = dotHeight / 2;
+    CGFloat width = [[UIScreen mainScreen] bounds].size.width - dotWidth;
+    CGFloat height = [[UIScreen mainScreen] bounds].size.height - dotHeight;
+    
+    if (service.isLeftWallUp)
+    {
+        x += wallThickness;
+        width -= wallThickness;
+    }
+
+    if (service.isTopWallUp)
+    {
+        y += wallThickness;
+        height -= wallThickness;
+    }
+    
+    if (service.isRightWallUp)
+    {
+        width -= wallThickness;
+    }
+
+    if (service.isBottomWallUp)
+    {
+        height -= wallThickness;
+    }
+    
+    CGRect ret = CGRectMake(x, y, width, height);
+    return ret;
+}
 
 
 

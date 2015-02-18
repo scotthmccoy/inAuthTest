@@ -1,0 +1,31 @@
+//
+//  PrefixHeader.pch
+//  inAuthTest
+//
+//  Created by Scott McCoy on 2/17/15.
+//  Copyright (c) 2015 ScottSoft. All rights reserved.
+//
+
+#ifndef inAuthTest_PrefixHeader_pch
+#define inAuthTest_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+//Turns DebugLog on and off
+
+#define DEBUG_LOG_ON
+
+#ifdef DEBUG_LOG_ON
+    //Define the DebugLog macro
+    #define DebugLog( s, ... ) NSLog( @"%s(%d)  %@",__PRETTY_FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+    //Define DebugLogWhereAmI which just NSLogs __PRETTY_FUNCTION__ and __LINE__
+    #define DebugLogWhereAmI() DebugLog(@"")
+#else
+    //Define both macros as emptystring so they don't do anything
+    #define DebugLog( s, ... )
+    #define DebugLogWhereAmI()
+#endif
+
+#endif
