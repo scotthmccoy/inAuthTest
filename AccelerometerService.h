@@ -10,4 +10,10 @@
 
 @interface AccelerometerService : NSObject
 
++ (AccelerometerService*) singleton;
+- (void) update;
+
+@property CGPoint accelerationInPixelsPerSecond;
+
+
 @end

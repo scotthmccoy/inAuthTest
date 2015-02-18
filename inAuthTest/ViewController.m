@@ -6,8 +6,12 @@
 //  Copyright (c) 2015 ScottSoft. All rights reserved.
 //
 
+//Header
 #import "ViewController.h"
 
+//Other
+#import "AccelerometerService.h"
+#import "CGPointAdditions.h"
 
 const int dotWidth = 50;
 const int dotHeight = 50;
@@ -72,8 +76,16 @@ const NSTimeInterval minimumTickLength = 0.01;
 }
 
 - (void) gameLoopTick: (NSTimeInterval) dt {
-
-    self.dot.center = CGPointMake(self.dot.center.x + 1, self.dot.center.y);
+    
+    NSLog(@"Tick");
+    
+    //Get fresh values from accelerometer
+    [[AccelerometerService singleton] update];
+    
+    CGPoint dotCenter = CGPointAdd([AccelerometerService singleton].accelerationInPixelsPerSecond, self.dot.center);
+    dotCenter = CGPointClampToRect(dotCenter, [[UIScreen mainScreen] bounds]);
+    
+    self.dot.center = dotCenter;
 }
 
 

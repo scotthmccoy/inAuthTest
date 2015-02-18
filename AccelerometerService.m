@@ -29,7 +29,7 @@
 
 static AccelerometerService* singletonObject;
 
-- (AccelerometerService*) singleton {
++ (AccelerometerService*) singleton {
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -49,23 +49,28 @@ static AccelerometerService* singletonObject;
     
     //Set up motionManager
     self.motionManager = [[CMMotionManager alloc] init];
-    if (self.motionManager) {
+
+    if (self.motionManager.isAccelerometerAvailable) {
         [self.motionManager startAccelerometerUpdates];
+    } else {
+        NSLog(@"Accelerometer not available!");
+        self.accelerationInPixelsPerSecond = CGPointMake(1, 1);
     }
     
     
     return self;
 }
 
-
+//Get the most recent accelerometer data and update this service's properties.
 - (void) update {
-
-    //Accelerometer data is measured in
-    CMAccelerometerData* data = self.motionManager.accelerometerData;
     
-//    data.y
+    if (!self.motionManager.isAccelerometerAvailable) {
+        return;
+    }
     
-    
+    //Accelerometer data is measured in G's
+    CMAcceleration data = self.motionManager.accelerometerData.acceleration;
+    self.accelerationInPixelsPerSecond = CGPointMake(data.x, data.y);
 }
 
 

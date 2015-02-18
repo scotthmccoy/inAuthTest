@@ -49,6 +49,7 @@
 		6CCC18411A93E24B0017A56D /* AccelerometerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerService.h; sourceTree = SOURCE_ROOT; };
 		6CCC18421A93E24B0017A56D /* AccelerometerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelerometerService.m; sourceTree = SOURCE_ROOT; };
 		6CCC18461A93E3700017A56D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		6CCC18481A941AAA0017A56D /* CGPointAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGPointAdditions.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +100,7 @@
 				6CCC18211A93DBCA0017A56D /* ViewController.m */,
 				6CCC18411A93E24B0017A56D /* AccelerometerService.h */,
 				6CCC18421A93E24B0017A56D /* AccelerometerService.m */,
+				6CCC18481A941AAA0017A56D /* CGPointAdditions.h */,
 				6CCC18231A93DBCA0017A56D /* Main.storyboard */,
 				6CCC18261A93DBCA0017A56D /* Images.xcassets */,
 				6CCC18281A93DBCA0017A56D /* LaunchScreen.xib */,
