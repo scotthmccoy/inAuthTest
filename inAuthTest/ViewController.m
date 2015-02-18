@@ -19,10 +19,7 @@ const int dotWidth = 50;
 const int dotHeight = 50;
 const NSTimeInterval minimumTickLength = 0.01;
 const CGFloat wallThickness = 1.0;
-
-//Note: programmers are often pretty bad at predicting the direction of change in an application over time.
-//I was tempted to put these hex values into a plist, but with a count of only 4, it seemed like overkill so
-//I went with YAGNI on this one.
+//Note: I was tempted to put these hex values into a plist, but with a count of only 4, it seemed like overkill
 const int hexColorForDot = 0x3882a6;
 const int hexColorForViewBackground = 0x113c48;
 const int hexColorForAddressText = 0xf8f989;
@@ -50,6 +47,7 @@ const int hexColorForAddressBackground = 0x000000;
 
     [super viewDidLoad];
     
+    //Setup styling
     self.view.backgroundColor = [UIColor colorWithHexValue:hexColorForViewBackground];
     self.addressLabel.textColor = [UIColor colorWithHexValue:hexColorForAddressText];
     self.addressLabel.backgroundColor = [UIColor colorWithHexValue:hexColorForAddressBackground alpha:0.25];
@@ -75,6 +73,7 @@ const int hexColorForAddressBackground = 0x000000;
     self.lastTick = [NSDate timeIntervalSinceReferenceDate];
     [self gameLoop];
     
+    //Required for shake events
     [self becomeFirstResponder];
 }
 
@@ -87,8 +86,15 @@ const int hexColorForAddressBackground = 0x000000;
     if (self.gameInProgress) {
         
         //Queue updates to the game on the main thread as often as possible.
-        //Note: I could have gone with an NSTimer here or piggybacked on accelerometer updates and used
-        //that as my main loop, but this seemed a nice compromise between elegenace, robustness and stability.
+
+        //Note: I prefer this method because game loop updates are queued as fast as they
+        //can be completed. I could have gone with an NSTimer here but they fire on a
+        //specified interval which works fine when you have more than enough processing
+        //power to run them, but when you don't, your updates can pile up. Basically, it
+        //works the worst when you need it the most. Another option would have been to
+        //piggyback on accelerometer updates, which is definitely more "simple" in that it's
+        //fewer lines of code, but then accelerometer-secific stuff is all mixed in with game
+        //loop stuff, and it's harder to test.
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             
             //Get the delta-time, or dt.
@@ -108,7 +114,7 @@ const int hexColorForAddressBackground = 0x000000;
 }
 
 //Note: performing loop updates using the delta-time since the last update gives us frames updating as fast as possible
-//while keeping the calculations to make them happen fluid.
+//while keeping calculations fluid.
 - (void) gameLoopTick: (NSTimeInterval) dt {
     
     //DebugLog(@"Tick: %f", dt);
@@ -131,6 +137,14 @@ const int hexColorForAddressBackground = 0x000000;
     CGPoint dtVelocity = CGPointMult(self.dotVelocity, dt);
     CGPoint dotCenter = CGPointAdd(dtVelocity, self.dot.center);
     
+    //Note: I decided to go with very simple collision handling that sets the dot's velocity to 0,0
+    //when it collides with the edge of the screen. In gameplay, the walls feel cushioned and/or sticky.
+    //It would be fairly easy to determine the angle of incidence and reflection during a collision and
+    //set the velocity such that the dot bounces off of the walls. But, maybe the customer doesn't want that!
+    //Agile teaches us not to interpret the requirements-as-written too broadly, deliver frequently, and
+    //get plenty of feedback from the customer. In this way, your time spent programming is (as often
+    //as possible) spent adding business value.
+    
     //Clamp
     CGRect dotBounds = [self getDotBounds:service];
     CGPoint clampedDotCenter = CGPointClampToRect(dotCenter, dotBounds);
@@ -138,7 +152,6 @@ const int hexColorForAddressBackground = 0x000000;
     //Check for collisions
     if (!CGPointEqualToPoint(dotCenter, clampedDotCenter))
     {
-        //DebugLog(@"Collision Detected");
         self.dotVelocity = CGPointZero;
     }
     
@@ -146,7 +159,7 @@ const int hexColorForAddressBackground = 0x000000;
     
     
     
-    //If the dot is in the upper 20% of the screen
+    //If the dot is in the upper 20% of the screen, show the address label
     CGFloat threshold = [UIScreen mainScreen].bounds.size.height * .2;
     if (service.isPortrait && self.dot.center.y <= threshold) {
         self.addressLabel.hidden = NO;
@@ -156,8 +169,10 @@ const int hexColorForAddressBackground = 0x000000;
     
 }
 
+//Determines the hit box for screen edge collisions, based on the dot's size and the AccelerometerService's
+//knowledge of how vertical the device is.
 //Note: this takes the service as an argument to make unit testing easier. It's an example of Dependency Injection,
-//which is a fancy way of saying "pass things the stuff they need to work"
+//which is a fancy way of saying "pass methods the stuff they need to work so that testing is easier"
 - (CGRect) getDotBounds:(AccelerometerService*) service {
 
     CGFloat x = dotWidth / 2;
@@ -191,7 +206,7 @@ const int hexColorForAddressBackground = 0x000000;
     return ret;
 }
 
-#pragma mark - Core Location
+#pragma mark - CLLocationManagerDelegate methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
 
     //DebugLogWhereAmI();
@@ -209,13 +224,13 @@ const int hexColorForAddressBackground = 0x000000;
                                  placemark.postalCode,          //Zip
                                  placemark.country];            //Country
         }
-    } ];
+    }];
     
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    DebugLog(@"didFailWithError: %@", error);
+    DebugLog(@"error = [%@]", error);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -235,10 +250,13 @@ const int hexColorForAddressBackground = 0x000000;
 
 
 #pragma mark - Other
+
+//Hide the status bar
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
 
+//Shake event handler
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
 
     if (motion == UIEventSubtypeMotionShake)
@@ -247,6 +265,7 @@ const int hexColorForAddressBackground = 0x000000;
     }
 }
 
+//Touch event handler
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (self.dot.hidden) {

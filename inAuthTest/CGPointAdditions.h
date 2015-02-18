@@ -8,7 +8,6 @@
 
 #define CLAMP(V, L, H)    MAX( L, MIN(H, V) )
 
-//TODO: Consider moving these to another class, or a pch file
 static inline CGPoint CGPointAdd(CGPoint lValue, CGPoint rValue)
 {
     CGPoint ret;
