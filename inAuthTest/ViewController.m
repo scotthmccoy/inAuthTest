@@ -117,7 +117,7 @@ const int hexColorForAddressBackground = 0x000000;
 //while keeping calculations fluid.
 - (void) gameLoopTick: (NSTimeInterval) dt {
     
-    //DebugLog(@"Tick: %f", dt);
+    DebugLog(@"Tick: %f", dt);
     if (self.dot.hidden) {
         self.addressLabel.hidden = YES;
         self.dotVelocity = CGPointZero;

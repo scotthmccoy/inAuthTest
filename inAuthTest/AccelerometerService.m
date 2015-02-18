@@ -81,8 +81,8 @@ static AccelerometerService* singletonObject;
 
     if (TARGET_IPHONE_SIMULATOR) {
         //For testing, simulate tilting the device hard to the right and slightly down
-        //TODO: have touchesMoved change direction of gravity for better in-simulator testing
-        data.x = 1.0;
+        //TODO: have touchesMoved change direction of gravity for in-simulator testing
+        data.x = 0.25;
         data.y = -0.1;
         data.z = 0.0;
     } else {
