@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6C0026A31A94489D00C32287 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CCC18461A93E3700017A56D /* CoreMotion.framework */; };
 		6C0026A51A944C8D00C32287 /* ViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0026A41A944C8D00C32287 /* ViewControllerTests.m */; };
+		6C0026A81A9486F600C32287 /* UIColor+HexValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0026A71A9486F600C32287 /* UIColor+HexValues.m */; };
 		6CCC181C1A93DBCA0017A56D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC181B1A93DBCA0017A56D /* main.m */; };
 		6CCC181F1A93DBCA0017A56D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC181E1A93DBCA0017A56D /* AppDelegate.m */; };
 		6CCC18221A93DBCA0017A56D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC18211A93DBCA0017A56D /* ViewController.m */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		6C0026A21A9426FA00C32287 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		6C0026A41A944C8D00C32287 /* ViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerTests.m; sourceTree = "<group>"; };
+		6C0026A71A9486F600C32287 /* UIColor+HexValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexValues.m"; sourceTree = "<group>"; };
 		6CCC18161A93DBCA0017A56D /* inAuthTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = inAuthTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CCC181A1A93DBCA0017A56D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CCC181B1A93DBCA0017A56D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				6CCC18481A941AAA0017A56D /* CGPointAdditions.h */,
 				6CCC184D1A9424A30017A56D /* AccelerometerService.h */,
 				6CCC184E1A9424A30017A56D /* AccelerometerService.m */,
+				6C0026A71A9486F600C32287 /* UIColor+HexValues.m */,
 				6CCC18231A93DBCA0017A56D /* Main.storyboard */,
 				6CCC18261A93DBCA0017A56D /* Images.xcassets */,
 				6CCC18281A93DBCA0017A56D /* LaunchScreen.xib */,
@@ -246,6 +249,7 @@
 				6CCC184F1A9424A30017A56D /* AccelerometerService.m in Sources */,
 				6CCC181F1A93DBCA0017A56D /* AppDelegate.m in Sources */,
 				6CCC181C1A93DBCA0017A56D /* main.m in Sources */,
+				6C0026A81A9486F600C32287 /* UIColor+HexValues.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

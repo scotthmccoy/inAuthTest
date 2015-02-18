@@ -12,6 +12,7 @@
 //Other
 #import "AccelerometerService.h"
 #import "CGPointAdditions.h"
+#import "UIColor+HexValues.m"
 
 //Constants
 const int dotWidth = 50;
@@ -42,9 +43,11 @@ const CGFloat wallThickness = 1.0;
     
     //Add the dot to the view
     self.dot = [[UIView alloc] initWithFrame:CGRectMake(0,0,dotWidth,dotHeight)];
-    self.dot.backgroundColor = [UIColor redColor];
+    self.dot.backgroundColor = [UIColor colorWithHexValue:0x000000];
     [self.view addSubview:self.dot];
     
+    
+
     
     //Start the game loop
     self.gameInProgress = YES;
@@ -61,13 +64,15 @@ const CGFloat wallThickness = 1.0;
     if (self.gameInProgress) {
         
         //Have the main thread update the game as often as possible.
+        //Note: I could have gone with an NSTimer here or piggybacked on the accelerometer updates and used
+        //that as my main loop, but this seemed a nice compromise between elegenace, robustness and stability.
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             
             //Get the delta-time, or dt.
             NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
             NSTimeInterval dt = now - self.lastTick;
             
-            //Move the game forward one tick
+            //Move the game forward one "tick"
             if (dt > minimumTickLength) {
                 [self gameLoopTick:dt];
                 self.lastTick = now;
@@ -79,6 +84,8 @@ const CGFloat wallThickness = 1.0;
     }
 }
 
+//Note: performing loop updates using the delta-time since the last update gives us frames updating as fast as possible
+//while keeping the calculations to make them happen fluid.
 - (void) gameLoopTick: (NSTimeInterval) dt {
     
     DebugLog(@"Tick: %f", dt);
@@ -120,6 +127,8 @@ const CGFloat wallThickness = 1.0;
     
 }
 
+//Note: this takes the service as an argument to make unit testing easier. It's an example of Dependency Injection,
+//which is a fancy way of saying "pass things the stuff they need to work"
 - (CGRect) getDotBounds:(AccelerometerService*) service {
 
     CGFloat x = dotWidth / 2;
