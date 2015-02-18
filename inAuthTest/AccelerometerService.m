@@ -25,7 +25,7 @@ const CGFloat pixelsPerGravity = 1000.0;
 const double wallThreshold = 0.9;
 
 //Tilt threshold for determining if the device is in portrait or not.
-const double portraitThreshold = -0.5;
+const double portraitThreshold = 0.0;
 
 @interface AccelerometerService()
 @property (nonatomic, strong) CMMotionManager* motionManager;
@@ -67,24 +67,27 @@ static AccelerometerService* singletonObject;
 
     if (self.motionManager.isAccelerometerAvailable) {
         [self.motionManager startAccelerometerUpdates];
-    } else {
-        NSLog(@"Accelerometer not available!");
-        self.accelerationInPixelsPerSecond = CGPointMake(1, 1);
     }
-    
     
     return self;
 }
 
 //Get the most recent accelerometer data and update this service's properties.
 - (void) update {
-    
-    if (!self.motionManager.isAccelerometerAvailable) {
-        return;
+
+    //Accelerometer data is measured in G's
+    CMAcceleration data;
+
+    if (TARGET_IPHONE_SIMULATOR) {
+        //For testing, simulate tilting the device hard to the right and slightly down
+        //TODO: have touchesMoved change direction of gravity for in-simulator testing
+        data.x = 1.0;
+        data.y = -0.1;
+        data.z = 0.0;
+    } else {
+        data = self.motionManager.accelerometerData.acceleration;
     }
     
-    //Accelerometer data is measured in G's
-    CMAcceleration data = self.motionManager.accelerometerData.acceleration;
     DebugLog(@"data.x = [%f], data.y = [%f]", data.x, data.y);
     
     [self updateInternal:data];
@@ -104,7 +107,7 @@ static AccelerometerService* singletonObject;
     self.isTopWallUp = data.y < wallThreshold;
     self.isBottomWallUp = data.y > -wallThreshold;
 
-    self.isPortrait = data.y < portraitThreshold;
+    self.isPortrait = data.y <= portraitThreshold;
 }
 
 
