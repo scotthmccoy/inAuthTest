@@ -84,18 +84,22 @@ static AccelerometerService* singletonObject;
     CMAcceleration data = self.motionManager.accelerometerData.acceleration;
     DebugLog(@"data.x = [%f], data.y = [%f]", data.x, data.y);
     
+    [self updateInternal:data];
+}
+
+//Private, unit-testable part of update method.
+- (void) updateInternal:(CMAcceleration) data {
     
     //The origin is in the top left and grows in the positive y downward, so we flip the y-value
     self.accelerationInPixelsPerSecond = CGPointMult(CGPointMake(data.x, -data.y), pixelsPerGravity);
     
-//    DebugLog(@"self.accelerationInPixelsPerSecond.x = [%f], self.accelerationInPixelsPerSecond.y = [%f]", self.accelerationInPixelsPerSecond.x, self.accelerationInPixelsPerSecond.y);
+    //    DebugLog(@"self.accelerationInPixelsPerSecond.x = [%f], self.accelerationInPixelsPerSecond.y = [%f]", self.accelerationInPixelsPerSecond.x, self.accelerationInPixelsPerSecond.y);
     
     //These determine whether the dot can touch the edge of the screen.
     self.isRightWallUp = data.x < wallThreshold;
     self.isLeftWallUp = data.x > -wallThreshold;
     self.isTopWallUp = data.y < wallThreshold;
     self.isBottomWallUp = data.y > -wallThreshold;
-
 }
 
 

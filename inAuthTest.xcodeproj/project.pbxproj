@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C0026A31A94489D00C32287 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CCC18461A93E3700017A56D /* CoreMotion.framework */; };
 		6CCC181C1A93DBCA0017A56D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC181B1A93DBCA0017A56D /* main.m */; };
 		6CCC181F1A93DBCA0017A56D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC181E1A93DBCA0017A56D /* AppDelegate.m */; };
 		6CCC18221A93DBCA0017A56D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC18211A93DBCA0017A56D /* ViewController.m */; };
 		6CCC18251A93DBCA0017A56D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CCC18231A93DBCA0017A56D /* Main.storyboard */; };
 		6CCC18271A93DBCA0017A56D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CCC18261A93DBCA0017A56D /* Images.xcassets */; };
 		6CCC182A1A93DBCA0017A56D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CCC18281A93DBCA0017A56D /* LaunchScreen.xib */; };
-		6CCC18361A93DBCA0017A56D /* inAuthTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC18351A93DBCA0017A56D /* inAuthTestTests.m */; };
+		6CCC18361A93DBCA0017A56D /* AccelerometerServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC18351A93DBCA0017A56D /* AccelerometerServiceTests.m */; };
 		6CCC18401A93DD620017A56D /* devnotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6CCC183F1A93DD620017A56D /* devnotes.txt */; };
 		6CCC18471A93E3700017A56D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CCC18461A93E3700017A56D /* CoreMotion.framework */; };
 		6CCC184F1A9424A30017A56D /* AccelerometerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCC184E1A9424A30017A56D /* AccelerometerService.m */; };
@@ -43,7 +44,7 @@
 		6CCC18291A93DBCA0017A56D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		6CCC182F1A93DBCA0017A56D /* inAuthTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = inAuthTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CCC18341A93DBCA0017A56D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6CCC18351A93DBCA0017A56D /* inAuthTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = inAuthTestTests.m; sourceTree = "<group>"; };
+		6CCC18351A93DBCA0017A56D /* AccelerometerServiceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccelerometerServiceTests.m; sourceTree = "<group>"; };
 		6CCC183F1A93DD620017A56D /* devnotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devnotes.txt; sourceTree = "<group>"; };
 		6CCC18461A93E3700017A56D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		6CCC18481A941AAA0017A56D /* CGPointAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGPointAdditions.h; sourceTree = "<group>"; };
@@ -64,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C0026A31A94489D00C32287 /* CoreMotion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +123,7 @@
 		6CCC18321A93DBCA0017A56D /* inAuthTestTests */ = {
 			isa = PBXGroup;
 			children = (
-				6CCC18351A93DBCA0017A56D /* inAuthTestTests.m */,
+				6CCC18351A93DBCA0017A56D /* AccelerometerServiceTests.m */,
 				6CCC18331A93DBCA0017A56D /* Supporting Files */,
 			);
 			path = inAuthTestTests;
@@ -248,7 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CCC18361A93DBCA0017A56D /* inAuthTestTests.m in Sources */,
+				6CCC18361A93DBCA0017A56D /* AccelerometerServiceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
